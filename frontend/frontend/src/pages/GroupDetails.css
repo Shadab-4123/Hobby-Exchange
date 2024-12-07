@@ -1,0 +1,141 @@
+/* Container for the entire group details page */
+.group-details-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Group name styling */
+.group-details-container h2 {
+  font-size: 2rem;
+  color: #4FA8B9;
+  text-align: center;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #f4f7fb;
+  padding-bottom: 5px;
+}
+
+/* Group description and category */
+.group-details-container p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333333;
+}
+
+/* Category and members count */
+.group-category,
+.group-members {
+  font-weight: bold;
+  color: #4FA8B9;
+  margin-bottom: 10px;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  background: #6ECEDA;
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background 0.3s;
+  display: inline-block;
+  margin: 10px 0;
+}
+
+button:hover {
+  background: #4FA8B9;
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 5px #4FA8B9;
+}
+
+.join-group-button {
+  display: block;
+  margin: 20px auto;
+}
+
+/* Toggle Chat Room button */
+.chat-room-toggle {
+  display: block;
+  margin: 20px auto;
+}
+
+/* Post form styling */
+.post-form {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.post-form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.post-form input:focus {
+  border-color: #4FA8B9;
+}
+
+.post-button {
+  padding: 10px 20px;
+}
+
+/* Posts list */
+.posts-list {
+  margin-top: 20px;
+}
+
+.post-card {
+  background: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.post-card p {
+  margin: 0;
+  line-height: 1.6;
+  color: #333333;
+}
+
+.post-card .post-date {
+  font-size: 0.9rem;
+  color: #999999;
+  margin-top: 10px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .group-details-container {
+      padding: 15px;
+  }
+
+  .post-form {
+      flex-direction: column;
+      gap: 10px;
+  }
+
+  .post-form input {
+      width: 100%;
+  }
+
+  button {
+      width: 100%;
+  }
+}
