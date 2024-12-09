@@ -1,34 +1,34 @@
-/* src/components/Navbar.css */
-
 .navbar {
   background: linear-gradient(135deg, #ff9800, #ff7043);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 1rem 2rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 0.8rem 2rem;
   position: sticky;
   top: 0;
   width: 100%;
   z-index: 1000;
+  transition: all 0.3s ease;
 }
 
 .navbar-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
 .navbar-brand {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: bold;
   color: #ffffff;
   text-decoration: none;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  transition: color 0.3s ease;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .navbar-brand:hover {
   color: #ffe0b2;
+  transform: scale(1.05);
 }
 
 .navbar-links {
@@ -44,12 +44,13 @@
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: 8px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
 }
 
 .navbar-link:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  transform: translateY(-3px);
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffe0b2;
+  transform: translateY(-2px);
 }
 
 .navbar-button {
@@ -57,23 +58,26 @@
   color: #ff7043;
   font-size: 1rem;
   font-weight: bold;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1.2rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .navbar-button:hover {
   background: #ffe0b2;
   color: #ff5722;
   transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-button:active {
   background: #ffd180;
   color: #e64a19;
   transform: translateY(2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsive Styles */
@@ -90,7 +94,7 @@
   }
 
   .navbar-brand {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 }
 
@@ -100,7 +104,7 @@
   }
 
   .navbar-brand {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .navbar-link, .navbar-button {

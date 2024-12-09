@@ -56,4 +56,12 @@ export const getAllGroups = async () => {
     return response.data;
   };
 
-  
+  export const createEvent = async (groupId, eventData) => {
+    try {
+        const response = await axios.post(`/groups/${groupId}/events`, eventData);
+        return response.data;
+    } catch (error) {
+        console.error('Error creating event:', error);
+        throw error;
+    }
+};

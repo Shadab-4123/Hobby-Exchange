@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const eventRoutes = require('./routes/eventRoutes');
 
 dotenv.config();
 
@@ -10,10 +11,19 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors({
-    origin: 'http://localhost:5174', // Replace with your frontend URL
+const corsOptions = {
+    origin: (origin, callback) => {
+      if (origin === 'http://localhost:5173' || origin === 'http://localhost:5174') {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
-}));
+  };
+
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Connect to MongoDB
@@ -28,6 +38,7 @@ const chatRoutes = require('./routes/chatRoutes'); // Ensure chatRoutes are prop
 app.use('/api/auth', authRoutes);
 app.use('/api/groups', groupRoutes); // Mounted at /api/groups
 app.use('/api', chatRoutes); // Ensure chatRoutes handle their own paths
+app.use('/api', eventRoutes);
 
 // Default Route
 app.get('/', (req, res) => {

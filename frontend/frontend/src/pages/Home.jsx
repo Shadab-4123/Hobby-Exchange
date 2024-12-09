@@ -150,7 +150,7 @@ const Home = () => {
                         )
                       ) : (
                         <div className="login-prompt">
-                          <p>You must be logged in to join a group.</p>
+                          {/* <p>You must be logged in to join a group.</p> */}
                           <Link to="/login" className="prompt-link">Login</Link> or <Link to="/register" className="prompt-link">Register</Link>
                         </div>
                       )}

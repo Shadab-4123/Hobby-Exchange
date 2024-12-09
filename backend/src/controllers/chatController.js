@@ -38,12 +38,10 @@ exports.getMessages = async (req, res) => {
     }
 };
 
-// Send a message to a specific group
 exports.sendMessage = async (req, res) => {
     const { groupId } = req.params;
     const { message } = req.body;
 
-    // Validate groupId
     if (!mongoose.Types.ObjectId.isValid(groupId)) {
         return res.status(400).json({ message: 'Invalid group ID' });
     }
@@ -58,7 +56,6 @@ exports.sendMessage = async (req, res) => {
             return res.status(404).json({ message: 'Group not found' });
         }
 
-        // Check if user is a member
         if (!group.members.includes(req.user._id)) {
             return res.status(403).json({ message: 'You are not a member of this group' });
         }
@@ -71,7 +68,6 @@ exports.sendMessage = async (req, res) => {
 
         await newMessage.save();
 
-        // Emit via Pusher
         pusher.trigger(`group-${groupId}`, 'new-message', {
             _id: newMessage._id,
             groupId: newMessage.groupId,

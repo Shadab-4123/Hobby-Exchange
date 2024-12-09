@@ -3,7 +3,10 @@ const express = require('express');
 const router = express.Router();
 const groupController = require('../controllers/groupController');
 const postController = require('../controllers/postController'); // Import postController
-const auth = require('../middleware/authMiddleware'); // Assuming you have authentication middleware
+const { getMessages, sendMessage } = require('../controllers/chatController');
+const auth = require('../middleware/auth'); // Assuming you have authentication middleware
+const { createEvent, getEvents, getEventDetails, updateEvent, deleteEvent, participateEvent } = require('../controllers/eventController');
+
 
 // Group Routes
 // @route   POST /api/groups
@@ -31,15 +34,26 @@ router.post('/:groupId/join', auth, groupController.joinGroup);
 // @access  Private
 router.post('/:groupId/leave', auth, groupController.leaveGroup);
 
-// Posts Routes within Groups
-// @route   GET /api/groups/:groupId/posts
-// @desc    Get all posts in a group
-// @access  Private (assuming only members can view posts)
+// Chat Routes within Groups
+// @route   GET /api/groups/:groupId/messages
+// @desc    Get messages for a group
+// @access  Private
+router.get('/:groupId/messages', auth, getMessages);
+
+// @route   POST /api/groups/:groupId/messages
+// @desc    Send a message to a group
+// @access  Private
+router.post('/:groupId/messages', auth, sendMessage);
+
 router.get('/:groupId/posts', auth, postController.getPosts);
 
 // @route   POST /api/groups/:groupId/posts
 // @desc    Create a new post in a group
 // @access  Private (only members can create posts)
 router.post('/:groupId/posts', auth, postController.createPost);
+
+router.post('/:groupId/events', createEvent);
+
+
 
 module.exports = router;
