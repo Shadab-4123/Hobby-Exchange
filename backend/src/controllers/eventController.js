@@ -1,107 +1,96 @@
+// eventController.js
 const Event = require('../models/Event');
-const Group = require('../models/Group');  // Assuming there's a Group model
 
-// Get all events for a group
+// Get all events for a specific group
 exports.getAllEvents = async (req, res) => {
+    const { groupId } = req.params;
     try {
-        console.log('Fetching events for group:', req.params.groupId);  // Debug log
-        
-        // Ensure the group exists
-        const group = await Group.findById(req.params.groupId);
-        if (!group) return res.status(404).json({ message: 'Group not found' });
-
-        const events = await Event.find({ groupId: req.params.groupId });
-        if (!events || events.length === 0) {
-            return res.status(404).json({ message: 'No events found for this group' });
-        }
-        
+        const events = await Event.find({ group: groupId });
         res.status(200).json(events);
     } catch (err) {
-        console.error(err);  // Log errors
-        res.status(500).json({ message: 'Failed to get events', error: err.message });
+        res.status(500).json({ message: 'Error fetching events', error: err });
     }
 };
 
 // Create a new event
 exports.createEvent = async (req, res) => {
-    const { name, description, date, location } = req.body;
     const { groupId } = req.params;
+    const { name, description, date, location } = req.body;
 
     try {
-        // Ensure the group exists
-        const group = await Group.findById(groupId);
-        if (!group) return res.status(404).json({ message: 'Group not found' });
-
-        const event = new Event({
+        const newEvent = new Event({
+            group: groupId,
             name,
             description,
             date,
             location,
-            groupId,
         });
 
-        await event.save();
-        res.status(201).json(event);
+        await newEvent.save();
+        res.status(201).json(newEvent);
     } catch (err) {
-        res.status(500).json({ message: 'Failed to create event', error: err.message });
+        res.status(500).json({ message: 'Error creating event', error: err });
     }
 };
 
-// Get event details
+// Get details of a specific event
 exports.getEventDetails = async (req, res) => {
+    const { eventId } = req.params;
     try {
-        const event = await Event.findById(req.params.eventId);
-        if (!event) return res.status(404).json({ message: 'Event not found' });
+        const event = await Event.findById(eventId);
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
         res.status(200).json(event);
     } catch (err) {
-        res.status(500).json({ message: 'Failed to get event details', error: err.message });
+        res.status(500).json({ message: 'Error fetching event details', error: err });
     }
 };
 
-// Update an event
+// Update event details
 exports.updateEvent = async (req, res) => {
+    const { eventId } = req.params;
+    const updates = req.body;
+
     try {
-        const event = await Event.findByIdAndUpdate(req.params.eventId, req.body, { new: true });
-        if (!event) return res.status(404).json({ message: 'Event not found' });
-        res.status(200).json(event);
+        const updatedEvent = await Event.findByIdAndUpdate(eventId, updates, { new: true });
+        if (!updatedEvent) {
+            return res.status(404).json({ message: 'Event not found' });
+        }
+        res.status(200).json(updatedEvent);
     } catch (err) {
-        res.status(500).json({ message: 'Failed to update event', error: err.message });
+        res.status(500).json({ message: 'Error updating event', error: err });
     }
 };
 
 // Delete an event
-router.delete('/events/:eventId', async (req, res) => {
+exports.deleteEvent = async (req, res) => {
+    const { eventId } = req.params;
     try {
-        const { eventId } = req.params;
-        const event = await Event.findByIdAndDelete(eventId);
-
-        if (!event) {
+        const deletedEvent = await Event.findByIdAndDelete(eventId);
+        if (!deletedEvent) {
             return res.status(404).json({ message: 'Event not found' });
         }
-
         res.status(200).json({ message: 'Event deleted successfully' });
     } catch (err) {
-        res.status(500).json({ message: 'Failed to delete event', error: err.message });
+        res.status(500).json({ message: 'Error deleting event', error: err });
     }
-});
-
-module.exports = router;
+};
 
 // Participate in an event
 exports.participateInEvent = async (req, res) => {
+    const { eventId } = req.params;
+    const { userId } = req.body;  // Assuming user participation is based on userId
     try {
-        const event = await Event.findById(req.params.eventId);
-        if (!event) return res.status(404).json({ message: 'Event not found' });
-
-        if (event.participants.includes(req.user._id)) {
-            return res.status(400).json({ message: 'You are already participating in this event' });
+        const event = await Event.findById(eventId);
+        if (!event) {
+            return res.status(404).json({ message: 'Event not found' });
         }
-
-        event.participants.push(req.user._id);
+        // Add the user to the participants list (or a similar approach)
+        event.participants.push(userId);  // Assuming you have a participants field
         await event.save();
-
-        res.status(200).json({ message: 'You have successfully joined the event' });
+        res.status(200).json({ message: 'Successfully joined the event' });
     } catch (err) {
-        res.status(500).json({ message: 'Failed to join the event', error: err.message });
+        res.status(500).json({ message: 'Error participating in the event', error: err });
     }
 };
