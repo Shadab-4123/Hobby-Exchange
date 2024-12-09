@@ -14,7 +14,7 @@ const ChatRoom = ({ groupId }) => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const API_URL = import.meta.env.VITE_API_URL || 'https://hobby-exchange.onrender.com/api';
         const res = await axios.get(`${API_URL}/groups/${groupId}/messages`);
         setMessages(res.data);
       } catch (err) {
@@ -42,7 +42,7 @@ const ChatRoom = ({ groupId }) => {
     if (!message.trim()) return;
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const API_URL = import.meta.env.VITE_API_URL || 'https://hobby-exchange.onrender.com/api';
       const res = await axios.post(
         `${API_URL}/groups/${groupId}/messages`,
         { message },

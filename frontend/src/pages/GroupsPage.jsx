@@ -9,7 +9,7 @@ function GroupsPage() {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/groups');
+        const res = await axios.get('https://hobby-exchange.onrender.com/api/groups');
         setGroups(res.data);
       } catch (error) {
         console.error('Fetch Groups Error:', error.response.data);

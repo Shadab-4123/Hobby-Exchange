@@ -18,7 +18,7 @@ const Home = () => {
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+        const API_URL = import.meta.env.VITE_API_URL || 'https://hobby-exchange.onrender.com/api';
         const res = await axios.get(`${API_URL}/groups`);
         setGroups(res.data);
       } catch (err) {
@@ -41,7 +41,7 @@ const Home = () => {
 
     setJoiningGroupId(groupId);
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      const API_URL = import.meta.env.VITE_API_URL || 'https://hobby-exchange.onrender.com/api';
       await axios.post(`${API_URL}/groups/${groupId}/join`, {}, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`, // Include JWT token

@@ -11,19 +11,19 @@ dotenv.config();
 const app = express();
 
 // Middleware
-const corsOptions = {
-    origin: (origin, callback) => {
-      if (origin === 'http://localhost:5173' || origin === 'http://localhost:5174') {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-  };
+// const corsOptions = {
+//     origin: (origin, callback) => {
+//       if (origin === 'https://hobby-exchange.netlify.app/' || origin === 'http://localhost:5174') {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     credentials: true,
+//   };
 
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB

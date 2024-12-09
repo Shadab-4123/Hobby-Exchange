@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Define the base URL from environment variable or fallback to default
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';  // Default URL is set here
+const API_URL = import.meta.env.VITE_API_URL || 'https://hobby-exchange.onrender.com/api';  // Default URL is set here
 
 // Create an Axios instance
 const axiosInstance = axios.create({
